@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Neobrutalism Design Tokens ──────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --page-bg:  #FFFBF0;
+  --surface:  #F5F5F0;
+  --card:     #FFFFFF;
+  --white:    #FFFFFF;
+
+  /* Neobrutalism palette */
+  --nb-blue:   #4D96FF;
+  --nb-yellow: #FFD93D;
+  --nb-green:  #6BCB77;
+  --nb-red:    #FF6B6B;
+  --nb-purple: #C77DFF;
+  --nb-orange: #FF9A3C;
+
+  /* Text */
+  --text-1: #000000;
+  --text-2: #1a1a1a;
+  --text-3: #555555;
+
+  /* Compat aliases */
+  --accent:      #4D96FF;
+  --accent-soft: rgba(77,150,255,0.12);
+  --accent-text: #1a6fd4;
+  --green:       #6BCB77;
+  --red:         #FF6B6B;
+  --orange:      #FF9A3C;
+
+  /* Borders */
+  --border: 3px solid #000000;
+
+  /* Hard shadows — zero blur */
+  --shadow-sm:    3px 3px 0px 0px #000000;
+  --shadow-md:    4px 4px 0px 0px #000000;
+  --shadow-lg:    6px 6px 0px 0px #000000;
+  --shadow-xl:    8px 8px 0px 0px #000000;
+  --shadow-press: 2px 2px 0px 0px #000000;
+  --shadow-inset: inset 2px 2px 0px rgba(0,0,0,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--page-bg);
+  color: var(--text-1);
+  font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #000; border-radius: 0; }
+
+/* ── Neobrutalism Components ──────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Cards ──────────────────────────────────────────────────────────────── */
+  .clay, .clay-white {
+    background: var(--white);
+    border-radius: 4px;
+    border: 3px solid #000;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .clay-sm {
+    background: var(--white);
+    border-radius: 4px;
+    border: 2px solid #000;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .clay-inset {
+    background: var(--surface);
+    border-radius: 4px;
+    border: 2px solid #000;
+    box-shadow: none;
+  }
+
+  /* ── Inputs ─────────────────────────────────────────────────────────────── */
+  .field {
+    background: var(--white);
+    border-radius: 4px;
+    border: 2px solid #000;
+    box-shadow: var(--shadow-sm);
+    padding: 10px 14px;
+    color: var(--text-1);
+    width: 100%;
+    outline: none;
+    font-size: 13.5px;
+    font-family: inherit;
+    font-weight: 500;
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .field::placeholder { color: var(--text-3); }
+  .field:focus {
+    box-shadow: var(--shadow-sm);
+    outline: none;
+  }
+
+  /* ── Buttons ────────────────────────────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 3px solid #000;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 13.5px;
+    font-family: inherit;
+    border-radius: 4px;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .btn:hover:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px #000 !important;
+  }
+  .btn:active:not(:disabled) {
+    transform: translate(4px, 4px);
+    box-shadow: none !important;
+  }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .btn-blue {
+    background: var(--nb-blue);
+    color: #fff;
+    padding: 10px 20px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-yellow {
+    background: var(--nb-yellow);
+    color: #000;
+    padding: 10px 20px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-green {
+    background: var(--nb-green);
+    color: #000;
+    padding: 10px 20px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-clay {
+    background: var(--white);
+    color: var(--text-1);
+    padding: 9px 18px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ── Pill / badge ────────────────────────────────────────────────────────── */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    background: var(--white);
+    color: var(--text-1);
+    border: 2px solid #000;
+    box-shadow: 2px 2px 0px 0px #000;
+  }
+
+  /* ── Prose ───────────────────────────────────────────────────────────────── */
+  .prose h1, .prose h2, .prose h3 {
+    color: var(--text-1);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin: 14px 0 5px;
+  }
+  .prose h1 { font-size: 1.15rem; }
+  .prose h2 { font-size: 1.05rem; }
+  .prose h3 { font-size: 0.95rem; }
+  .prose p  { color: #111; margin-bottom: 9px; line-height: 1.65; }
+  .prose ul, .prose ol { padding-left: 18px; margin-bottom: 9px; color: #111; }
+  .prose li  { margin-bottom: 3px; }
+  .prose strong { color: var(--text-1); font-weight: 800; }
+  .prose em     { color: var(--text-2); font-style: italic; }
+  .prose code {
+    font-family: "JetBrains Mono", "SF Mono", monospace;
+    font-size: 0.82em;
+    background: #FFD93D;
+    color: #000;
+    border-radius: 0;
+    border: 1.5px solid #000;
+    padding: 1px 5px;
+  }
+  .prose pre {
+    background: #F5F5F0;
+    border-radius: 4px;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0px 0px #000;
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin-bottom: 10px;
+  }
+  .prose pre code { background: none; border: none; color: #000; font-size: 0.83em; padding: 0; }
+  .prose blockquote {
+    border-left: 4px solid #000;
+    padding-left: 12px;
+    color: var(--text-2);
+    margin: 10px 0;
+    font-style: italic;
+    font-weight: 600;
+  }
+}
+
+/* ── Typing dots ──────────────────────────────────────────────────────────── */
+.dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 0;
+  background: #000;
+}
+.dot:nth-child(1) { animation: dotBounce 1.2s 0.0s ease-in-out infinite; }
+.dot:nth-child(2) { animation: dotBounce 1.2s 0.2s ease-in-out infinite; }
+.dot:nth-child(3) { animation: dotBounce 1.2s 0.4s ease-in-out infinite; }
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.3; }
+  40%            { transform: translateY(-5px); opacity: 1; }
+}
+
+/* ── Mic active ───────────────────────────────────────────────────────────── */
+@keyframes micPulse {
+  0%   { box-shadow: 4px 4px 0px 0px #000, 0 0 0 0 rgba(255,107,107,0.5); }
+  70%  { box-shadow: 4px 4px 0px 0px #000, 0 0 0 10px rgba(255,107,107,0); }
+  100% { box-shadow: 4px 4px 0px 0px #000, 0 0 0 0 rgba(255,107,107,0); }
+}
+.mic-active { animation: micPulse 1.3s ease-out infinite; }
+
+/* ── Fade up ──────────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.22s ease-out; }

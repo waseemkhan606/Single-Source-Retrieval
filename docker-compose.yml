@@ -1,0 +1,60 @@
+version: "3.9"
+
+# ── Shared network ────────────────────────────────────────────────────────────
+networks:
+  app_net:
+    driver: bridge
+
+# ── Named volumes for persistence ─────────────────────────────────────────────
+volumes:
+  faiss_data:
+  eval_logs:
+
+services:
+
+  # ── FastAPI Backend ──────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: mlai_backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env          # copy .env.example → .env and fill values
+    environment:
+      - ALLOWED_ORIGINS=http://localhost:3000
+      - FAISS_INDEX_PATH=/data/faiss_index
+      - EVAL_LOG_PATH=/data/logs/ragas_eval.jsonl
+    volumes:
+      - faiss_data:/data/faiss_index
+      - eval_logs:/data/logs
+    ports:
+      - "8000:8000"
+    networks:
+      - app_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # ── Next.js Frontend ─────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://backend:8000
+    container_name: mlai_frontend
+    restart: unless-stopped
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+    ports:
+      - "3000:3000"
+    networks:
+      - app_net
+    depends_on:
+      backend:
+        condition: service_healthy
