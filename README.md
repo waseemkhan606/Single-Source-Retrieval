@@ -21,6 +21,16 @@
 
 ---
 
+## Prerequisites
+
+| Requirement | Version | Install |
+|---|---|---|
+| Python | 3.11+ | https://python.org |
+| Node.js & npm | 18+ | https://nodejs.org |
+| Docker (optional) | 20+ | https://docker.com |
+
+---
+
 ## Quick Start
 
 ### 1. Clone & configure secrets
