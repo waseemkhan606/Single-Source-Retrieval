@@ -10,6 +10,9 @@ import type {
 } from "@/types";
 
 const BASE = "/api";
+// Upload bypasses the Next.js proxy (which has a short timeout) and goes
+// directly to the backend — CORS is allowed for http://localhost:3000.
+const BACKEND_BASE = `${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"}/api`;
 
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
@@ -33,7 +36,7 @@ export async function uploadDocument(
   // Use XMLHttpRequest so we can track upload progress
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `${BASE}/upload`);
+    xhr.open("POST", `${BACKEND_BASE}/upload`);
 
     xhr.upload.onprogress = (e) => {
       if (e.lengthComputable && onProgress) {

@@ -46,11 +46,15 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_API_URL: http://backend:8000
+        # Baked into client-side JS — must be browser-accessible (localhost)
+        NEXT_PUBLIC_API_URL: http://localhost:8000
     container_name: mlai_frontend
     restart: unless-stopped
     environment:
-      - NEXT_PUBLIC_API_URL=http://backend:8000
+      # Server-side rewrite destination — Docker internal hostname
+      - INTERNAL_API_URL=http://backend:8000
+      # Browser-side direct calls (PDF upload progress tracking)
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
     ports:
       - "3000:3000"
     networks:
