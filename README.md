@@ -101,9 +101,12 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ```bash
 cd Single-Source-Retrieval   # skip this if you opened a fresh terminal tab in the project folder
 cd frontend
+cp .env.local.example .env.local
 npm install
 npm run dev
 ```
+
+> `.env.local` sets `NEXT_PUBLIC_API_URL=http://localhost:8000`. You only need to edit this value if your backend runs on a different port. The app works without this file (it defaults to `http://localhost:8000`), but creating it is good practice.
 
 ### 5. Open the app
 
