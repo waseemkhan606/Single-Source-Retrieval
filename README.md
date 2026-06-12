@@ -49,8 +49,8 @@ Embeddings run **locally** via `sentence-transformers` — no additional key nee
 ### 1. Clone the repo
 
 ```bash
-git clone <your-repo-url>
-cd PhaseUno
+git clone https://github.com/waseemkhan606/Single-Source-Retrieval.git
+cd Single-Source-Retrieval
 ```
 
 ### 2. Configure backend secrets
@@ -80,17 +80,26 @@ source .venv/bin/activate
 .venv\Scripts\Activate.ps1
 
 pip install -r requirements.txt
+```
+
+> **This step downloads PyTorch and other large packages (~1.5 GB total). It will take 5–15 minutes on first run.** That's normal — do not cancel it.
+
+```bash
 uvicorn app.main:app --reload --port 8000
 ```
 
-The backend is ready when you see:
+> On first start the backend downloads the embedding model (~90 MB from Hugging Face). Wait for the line below before continuing:
+
 ```
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ```
 
-### 4. Start the frontend (new terminal tab)
+### 4. Start the frontend (open a new terminal tab)
+
+**Navigate back to the project root first**, then into the frontend:
 
 ```bash
+cd Single-Source-Retrieval   # skip this if you opened a fresh terminal tab in the project folder
 cd frontend
 npm install
 npm run dev
@@ -109,8 +118,8 @@ Verify the backend is reachable at **http://localhost:8000/health** — you shou
 ### 1. Clone the repo
 
 ```bash
-git clone <your-repo-url>
-cd PhaseUno
+git clone https://github.com/waseemkhan606/Single-Source-Retrieval.git
+cd Single-Source-Retrieval
 ```
 
 ### 2. Configure backend secrets
@@ -131,7 +140,7 @@ OPENROUTER_API_KEY=sk-or-v1-your-key-here
 docker compose up --build
 ```
 
-> First build downloads model weights (~90 MB) and compiles Python packages — this takes a few minutes. Subsequent builds are cached and much faster.
+> First build compiles Python packages and the Next.js bundle — this takes **5–10 minutes**. On first container start, the backend also downloads the embedding model (~90 MB). Subsequent starts are instant. Do not cancel if it looks stuck.
 
 ### 4. Open the app
 
@@ -182,7 +191,7 @@ FAISS index and evaluation logs are stored in named Docker volumes and persist a
 ## Project Structure
 
 ```
-PhaseUno/
+Single-Source-Retrieval/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py                    # FastAPI entry point, CORS, routers
