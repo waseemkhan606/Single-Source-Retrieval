@@ -96,17 +96,25 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 
 ### 4. Start the frontend (open a new terminal tab)
 
-**Navigate back to the project root first**, then into the frontend:
+Open a **new terminal tab**, navigate to the project root, then into the frontend:
 
 ```bash
-cd Single-Source-Retrieval   # skip this if you opened a fresh terminal tab in the project folder
+# If you opened a fresh terminal tab, navigate to the project root first:
+cd path/to/Single-Source-Retrieval
+
 cd frontend
+
+# Mac/Linux:
 cp .env.local.example .env.local
+
+# Windows (PowerShell):
+copy .env.local.example .env.local
+
 npm install
 npm run dev
 ```
 
-> `.env.local` sets `NEXT_PUBLIC_API_URL=http://localhost:8000`. You only need to edit this value if your backend runs on a different port. The app works without this file (it defaults to `http://localhost:8000`), but creating it is good practice.
+> `.env.local` sets `NEXT_PUBLIC_API_URL=http://localhost:8000`. You only need to edit this value if your backend runs on a different port.
 
 ### 5. Open the app
 
@@ -220,12 +228,15 @@ Single-Source-Retrieval/
 │   ├── .env.example                   # Copy to .env and fill in your key
 │   └── .env                           # Your secrets (git-ignored)
 ├── frontend/
-│   └── src/
-│       ├── app/                       # Next.js App Router (layout, page)
-│       ├── components/                # ChatInterface, UploadZone, etc.
-│       ├── hooks/                     # useSpeechRecognition, useTextToSpeech
-│       ├── lib/api.ts                 # Typed API client
-│       └── types/index.ts
+│   ├── public/                        # Static assets (served at /)
+│   ├── src/
+│   │   ├── app/                       # Next.js App Router (layout, page)
+│   │   ├── components/                # ChatInterface, UploadZone, etc.
+│   │   ├── hooks/                     # useSpeechRecognition, useTextToSpeech
+│   │   ├── lib/api.ts                 # Typed API client
+│   │   └── types/index.ts
+│   ├── .env.local.example             # Copy to .env.local and set your backend URL
+│   └── .env.local                     # Your local frontend config (git-ignored)
 ├── docker-compose.yml
 └── README.md
 ```
